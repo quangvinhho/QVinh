@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LuxStay - Đăng nhập / Đăng ký</title>
+  <title>LuxStay - ÄÄƒng nháº­p / ÄÄƒng kÃ½</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
   <style>
@@ -67,11 +67,11 @@
 <body>
   <div class="auth-card bg-white">
     <div class="auth-header">
-      <a href="web.html" class="back-link"><i class="fas fa-arrow-left me-1"></i>Về trang chủ</a>
+      <a href="web.html" class="back-link"><i class="fas fa-arrow-left me-1"></i>Vá» trang chá»§</a>
       <div class="mt-3">
         <i class="fas fa-hotel fa-2x mb-2 d-block"></i>
         <h4>LuxStay</h4>
-        <p class="mb-0 opacity-75" style="font-size:14px;">Hệ thống đặt phòng khách sạn</p>
+        <p class="mb-0 opacity-75" style="font-size:14px;">Há»‡ thá»‘ng Ä‘áº·t phÃ²ng khÃ¡ch sáº¡n</p>
       </div>
     </div>
     <div class="auth-body">
@@ -79,12 +79,12 @@
       <ul class="nav nav-tabs mb-4 border-bottom" id="authTabs">
         <li class="nav-item">
           <button class="nav-link active" onclick="switchTab('login')">
-            <i class="fas fa-sign-in-alt me-1"></i>Đăng nhập
+            <i class="fas fa-sign-in-alt me-1"></i>ÄÄƒng nháº­p
           </button>
         </li>
         <li class="nav-item">
           <button class="nav-link" onclick="switchTab('register')">
-            <i class="fas fa-user-plus me-1"></i>Đăng ký
+            <i class="fas fa-user-plus me-1"></i>ÄÄƒng kÃ½
           </button>
         </li>
       </ul>
@@ -95,17 +95,17 @@
       <!-- Login Form -->
       <form id="loginForm" onsubmit="handleLogin(event)">
         <div class="mb-3">
-          <label class="form-label fw-semibold">Tên đăng nhập</label>
+          <label class="form-label fw-semibold">TÃªn Ä‘Äƒng nháº­p</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-user text-muted"></i></span>
-            <input type="text" id="loginUsername" class="form-control" placeholder="Nhập tên đăng nhập" required />
+            <input type="text" id="loginUsername" class="form-control" placeholder="Nháº­p tÃªn Ä‘Äƒng nháº­p" required />
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label fw-semibold">Mật khẩu</label>
+          <label class="form-label fw-semibold">Máº­t kháº©u</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-lock text-muted"></i></span>
-            <input type="password" id="loginPassword" class="form-control" placeholder="Nhập mật khẩu" required />
+            <input type="password" id="loginPassword" class="form-control" placeholder="Nháº­p máº­t kháº©u" required />
             <button type="button" class="btn btn-outline-secondary" onclick="togglePwd('loginPassword', this)">
               <i class="fas fa-eye"></i>
             </button>
@@ -114,28 +114,28 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div class="form-check">
             <input type="checkbox" class="form-check-input" id="rememberMe">
-            <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
+            <label class="form-check-label" for="rememberMe">Ghi nhá»› Ä‘Äƒng nháº­p</label>
           </div>
-          <a href="#" class="text-primary" style="font-size:14px;">Quên mật khẩu?</a>
+          <a href="#" class="text-primary" style="font-size:14px;">QuÃªn máº­t kháº©u?</a>
         </div>
         <button type="submit" class="btn btn-auth w-100">
-          <i class="fas fa-sign-in-alt me-2"></i>Đăng nhập
+          <i class="fas fa-sign-in-alt me-2"></i>ÄÄƒng nháº­p
         </button>
 
         <div class="demo-accounts mt-3">
-          <strong><i class="fas fa-info-circle text-primary me-1"></i>Tài khoản demo:</strong><br>
-          Khách hàng: <code>user</code> / <code>user123</code><br>
-          Quản trị: <code>admin</code> / <code>admin123</code>
+          <strong><i class="fas fa-info-circle text-primary me-1"></i>TÃ i khoáº£n demo:</strong><br>
+          KhÃ¡ch hÃ ng: <code>user</code> / <code>user123</code><br>
+          Quáº£n trá»‹: <code>admin</code> / <code>admin123</code>
         </div>
       </form>
 
       <!-- Register Form (hidden by default) -->
       <form id="registerForm" class="d-none" onsubmit="handleRegister(event)">
         <div class="mb-3">
-          <label class="form-label fw-semibold">Họ và tên</label>
+          <label class="form-label fw-semibold">Há» vÃ  tÃªn</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-id-card text-muted"></i></span>
-            <input type="text" id="regName" class="form-control" placeholder="Nhập họ và tên đầy đủ" required />
+            <input type="text" id="regName" class="form-control" placeholder="Nháº­p há» vÃ  tÃªn Ä‘áº§y Ä‘á»§" required />
           </div>
         </div>
         <div class="mb-3">
@@ -146,24 +146,24 @@
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label fw-semibold">Tên đăng nhập</label>
+          <label class="form-label fw-semibold">TÃªn Ä‘Äƒng nháº­p</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-user text-muted"></i></span>
-            <input type="text" id="regUsername" class="form-control" placeholder="Chọn tên đăng nhập" required />
+            <input type="text" id="regUsername" class="form-control" placeholder="Chá»n tÃªn Ä‘Äƒng nháº­p" required />
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label fw-semibold">Mật khẩu</label>
+          <label class="form-label fw-semibold">Máº­t kháº©u</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-lock text-muted"></i></span>
-            <input type="password" id="regPassword" class="form-control" placeholder="Tối thiểu 6 ký tự" required minlength="6" />
+            <input type="password" id="regPassword" class="form-control" placeholder="Tá»‘i thiá»ƒu 6 kÃ½ tá»±" required minlength="6" />
             <button type="button" class="btn btn-outline-secondary" onclick="togglePwd('regPassword', this)">
               <i class="fas fa-eye"></i>
             </button>
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label fw-semibold">Số điện thoại</label>
+          <label class="form-label fw-semibold">Sá»‘ Ä‘iá»‡n thoáº¡i</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fas fa-phone text-muted"></i></span>
             <input type="tel" id="regPhone" class="form-control" placeholder="09xxxxxxxx" />
@@ -172,11 +172,11 @@
         <div class="form-check mb-3">
           <input type="checkbox" class="form-check-input" id="agreeTerms" required>
           <label class="form-check-label" for="agreeTerms">
-            Tôi đồng ý với <a href="#" class="text-primary">Điều khoản sử dụng</a> và <a href="#" class="text-primary">Chính sách bảo mật</a>
+            TÃ´i Ä‘á»“ng Ã½ vá»›i <a href="#" class="text-primary">Äiá»u khoáº£n sá»­ dá»¥ng</a> vÃ  <a href="#" class="text-primary">ChÃ­nh sÃ¡ch báº£o máº­t</a>
           </label>
         </div>
         <button type="submit" class="btn btn-auth w-100">
-          <i class="fas fa-user-plus me-2"></i>Tạo tài khoản
+          <i class="fas fa-user-plus me-2"></i>Táº¡o tÃ i khoáº£n
         </button>
       </form>
     </div>
@@ -186,9 +186,9 @@
   <script>
     // Demo accounts
     const USERS_DB = [
-      { id: 1, name: 'Quản trị viên', username: 'admin', password: 'admin123', role: 'admin', email: 'admin@luxstay.vn', phone: '0901234567' },
-      { id: 1, name: 'Quản trị viên', username: 'admin', password: '123', role: 'admin', email: 'admin@luxstay.vn', phone: '0901234567' }, // backward compat
-      { id: 2, name: 'Nguyễn Văn A', username: 'user', password: 'user123', role: 'user', email: 'user@gmail.com', phone: '0987654321' }
+      { id: 1, name: 'Quáº£n trá»‹ viÃªn', username: 'admin', password: 'admin123', role: 'admin', email: 'admin@luxstay.vn', phone: '0901234567' },
+      { id: 1, name: 'Quáº£n trá»‹ viÃªn', username: 'admin', password: '123', role: 'admin', email: 'admin@luxstay.vn', phone: '0901234567' }, // backward compat
+      { id: 2, name: 'Nguyá»…n VÄƒn A', username: 'user', password: 'user123', role: 'user', email: 'user@gmail.com', phone: '0987654321' }
     ];
 
     function switchTab(tab) {
@@ -237,10 +237,10 @@
       if (found) {
         const sessionData = { id: found.id, name: found.name, username: found.username, role: found.role, email: found.email };
         localStorage.setItem('luxstay_user', JSON.stringify(sessionData));
-        showAlert(`<i class="fas fa-check-circle me-2"></i>Đăng nhập thành công! Chào mừng <strong>${found.name}</strong>`, 'success');
+        showAlert(`<i class="fas fa-check-circle me-2"></i>ÄÄƒng nháº­p thÃ nh cÃ´ng! ChÃ o má»«ng <strong>${found.name}</strong>`, 'success');
         setTimeout(() => { window.location.href = 'web.html'; }, 1200);
       } else {
-        showAlert('<i class="fas fa-times-circle me-2"></i>Tên đăng nhập hoặc mật khẩu không đúng!');
+        showAlert('<i class="fas fa-times-circle me-2"></i>TÃªn Ä‘Äƒng nháº­p hoáº·c máº­t kháº©u khÃ´ng Ä‘Ãºng!');
       }
       return false;
     }
@@ -254,14 +254,14 @@
 
       // Check duplicate username
       if (USERS_DB.some(u => u.username === username)) {
-        showAlert('<i class="fas fa-times-circle me-2"></i>Tên đăng nhập đã tồn tại, vui lòng chọn tên khác!');
+        showAlert('<i class="fas fa-times-circle me-2"></i>TÃªn Ä‘Äƒng nháº­p Ä‘Ã£ tá»“n táº¡i, vui lÃ²ng chá»n tÃªn khÃ¡c!');
         return false;
       }
 
       // In a real app, this would call an API. Here we simulate success.
       const newUser = { id: Date.now(), name, username, role: 'user', email };
       localStorage.setItem('luxstay_user', JSON.stringify(newUser));
-      showAlert(`<i class="fas fa-check-circle me-2"></i>Đăng ký thành công! Chào mừng <strong>${name}</strong>`, 'success');
+      showAlert(`<i class="fas fa-check-circle me-2"></i>ÄÄƒng kÃ½ thÃ nh cÃ´ng! ChÃ o má»«ng <strong>${name}</strong>`, 'success');
       setTimeout(() => { window.location.href = 'web.html'; }, 1200);
       return false;
     }
@@ -271,9 +271,21 @@
       const user = localStorage.getItem('luxstay_user');
       if (user) {
         const parsed = JSON.parse(user);
-        showAlert(`<i class="fas fa-info-circle me-2"></i>Bạn đang đăng nhập với tư cách <strong>${parsed.name}</strong>. <a href="web.html">Về trang chủ</a>`, 'info');
+        showAlert(`<i class="fas fa-info-circle me-2"></i>Báº¡n Ä‘ang Ä‘Äƒng nháº­p vá»›i tÆ° cÃ¡ch <strong>${parsed.name}</strong>. <a href="web.html">Vá» trang chá»§</a>`, 'info');
       }
     };
   </script>
+<!-- Nút Quay Lại Trang Chủ -->
+<a href="../index.html" style="position: fixed; bottom: 20px; left: 20px; background-color: #ef4444; color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-family: sans-serif; font-size: 14px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 9999; display: flex; align-items: center; gap: 8px; transition: background-color 0.2s;" onmouseover="this.style.backgroundColor='#dc2626'" onmouseout="this.style.backgroundColor='#ef4444'">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+    </svg>
+    Trang chính
+</a>
+
+<!-- Nut Quay Lai Trang Chu -->
+<a href='../index.html' style='position: fixed; bottom: 20px; right: 20px; background-color: #2563EB; color: white; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-family: sans-serif; font-size: 14px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); z-index: 9999; display: flex; align-items: center; gap: 8px;'><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'><path d='M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5Z'/></svg> Về Portal</a>
 </body>
 </html>
+
+
