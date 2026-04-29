@@ -1,80 +1,135 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hồ Quang Vinh | Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #1877F2;
-            --primary-dark: #1264D4;
-            --secondary: #42B72A;
-            --text-dark: #1c1e21;
-            --text-muted: #65676B;
-            --bg-color: #F0F2F5;
+            --primary: #4F46E5;
+            --primary-light: #818CF8;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --text-main: #F9FAFB;
+            --text-muted: #9CA3AF;
+            --bg-color: #0B0F19;
+            --card-bg: rgba(30, 41, 59, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
-            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem 0;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(24, 119, 242, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(66, 183, 42, 0.08), transparent 25%);
+            padding: 3rem 1rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Orbs */
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 10s infinite alternate;
+        }
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: rgba(79, 70, 229, 0.25);
+            top: -100px;
+            left: -100px;
+        }
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: rgba(16, 185, 129, 0.2);
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -5s;
+        }
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: rgba(245, 158, 11, 0.15);
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-duration: 15s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(30px) scale(1.1); }
         }
 
         .portal-wrapper {
-            max-width: 800px;
+            max-width: 1000px;
             width: 100%;
-            padding: 0 1.5rem;
+            z-index: 10;
         }
 
         .portal-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
 
         .portal-header h1 {
-            color: var(--primary);
             font-weight: 800;
-            font-size: 2.8rem;
-            letter-spacing: -1px;
-            margin-bottom: 0.5rem;
+            font-size: 3.5rem;
+            letter-spacing: -1.5px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
         }
 
         .portal-header p {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            gap: 2rem;
+            padding: 1rem;
         }
 
         .project-card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 2rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
             text-decoration: none;
-            color: var(--text-dark);
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-main);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             height: 100%;
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
         }
 
         .project-card::before {
@@ -83,104 +138,157 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
-            background: var(--primary);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-            border-color: transparent;
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .project-card:hover::before {
-            transform: scaleX(1);
+            opacity: 1;
         }
 
         .icon-wrapper {
-            width: 60px;
-            height: 60px;
-            border-radius: 14px;
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+        
+        .icon-wrapper::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: inherit;
+            filter: blur(15px);
+            z-index: -1;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
         }
 
         .card-1 .icon-wrapper {
-            background: rgba(24, 119, 242, 0.1);
-            color: var(--primary);
+            background: linear-gradient(135deg, #4F46E5 0%, #818CF8 100%);
+            color: #fff;
         }
+        .card-1 .icon-wrapper::after { background: #4F46E5; }
 
         .card-2 .icon-wrapper {
-            background: rgba(66, 183, 42, 0.1);
-            color: var(--secondary);
+            background: linear-gradient(135deg, #059669 0%, #34D399 100%);
+            color: #fff;
         }
+        .card-2 .icon-wrapper::after { background: #059669; }
 
         .card-3 .icon-wrapper {
-            background: rgba(255, 183, 77, 0.15);
-            color: #E65100;
+            background: linear-gradient(135deg, #D97706 0%, #FBBF24 100%);
+            color: #fff;
         }
+        .card-3 .icon-wrapper::after { background: #D97706; }
 
         .project-card:hover .icon-wrapper {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
+        }
+        .project-card:hover .icon-wrapper::after {
+            opacity: 1;
         }
 
         .project-card h3 {
             font-weight: 700;
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
         }
 
         .project-card p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
             flex-grow: 1;
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover p {
+            color: #D1D5DB;
         }
 
         .view-btn {
             display: inline-flex;
             align-items: center;
             font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--primary);
+            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
+            width: fit-content;
         }
 
         .view-btn i {
-            margin-left: 0.5rem;
+            margin-left: 0.8rem;
             transition: transform 0.3s ease;
         }
 
+        .card-1 .view-btn { color: var(--primary-light); }
+        .card-2 .view-btn { color: #34D399; }
+        .card-3 .view-btn { color: #FBBF24; }
+
+        .project-card:hover .view-btn {
+            background: rgba(255,255,255,0.1);
+        }
+
         .project-card:hover .view-btn i {
-            transform: translateX(5px);
+            transform: translateX(8px);
         }
 
         .footer-note {
             text-align: center;
-            margin-top: 4rem;
+            margin-top: 5rem;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            opacity: 0.7;
+        }
+        
+        .footer-note i {
+            color: #F87171;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
         @media (max-width: 768px) {
-            .portal-header h1 { font-size: 2.2rem; }
+            .portal-header h1 { font-size: 2.5rem; }
+            .project-card { padding: 2rem 1.5rem; }
         }
     </style>
 </head>
-
 <body>
+
+    <!-- Background Effects -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
 
     <div class="portal-wrapper">
         <div class="portal-header">
-            <h1>Trang Cá Nhân - Bài tập</h1>
-            <p>Xin chào! Dưới đây là các dự án của Hồ Quang Vinh. Vui lòng chọn để xem chi tiết.</p>
+            <h1>Hồ Quang Vinh</h1>
+            <p>Khám phá các dự án web cá nhân được phát triển trong quá trình học tập và rèn luyện. Chọn một dự án bên dưới để trải nghiệm.</p>
         </div>
 
         <div class="project-grid">
@@ -192,7 +300,7 @@
                 <h3>Portfolio Cá Nhân</h3>
                 <p>Website giới thiệu bản thân, kỹ năng và các dự án đã thực hiện. Giao diện được thiết kế hiện đại mang phong cách mạng xã hội.</p>
                 <div class="view-btn">
-                    Xem dự án <i class="bi bi-arrow-right"></i>
+                    Khám phá <i class="bi bi-arrow-right"></i>
                 </div>
             </a>
 
@@ -201,10 +309,10 @@
                 <div class="icon-wrapper">
                     <i class="bi bi-buildings"></i>
                 </div>
-                <h3>Dự án Webme</h3>
-                <p>Hệ thống đặt phòng khách sạn trực tuyến LuxStay với các tính năng xem phòng, đăng nhập và thông tin khách sạn.</p>
+                <h3>LuxStay System</h3>
+                <p>Hệ thống đặt phòng khách sạn trực tuyến với các tính năng xem phòng, đăng nhập và tìm kiếm thông tin resort/khách sạn.</p>
                 <div class="view-btn">
-                    Xem dự án <i class="bi bi-arrow-right" style="color: var(--secondary)"></i>
+                    Khám phá <i class="bi bi-arrow-right"></i>
                 </div>
             </a>
 
@@ -214,18 +322,17 @@
                     <i class="bi bi-file-earmark-person"></i>
                 </div>
                 <h3>Profile / CV</h3>
-                <p>Trang thông tin hồ sơ cá nhân và sơ yếu lý lịch riêng biệt được lưu trữ trong dự án Webme.</p>
+                <p>Trang thông tin hồ sơ cá nhân và sơ yếu lý lịch riêng biệt, kết hợp hiệu ứng đẹp mắt và trình bày khoa học.</p>
                 <div class="view-btn">
-                    Xem dự án <i class="bi bi-arrow-right" style="color: #E65100"></i>
+                    Khám phá <i class="bi bi-arrow-right"></i>
                 </div>
             </a>
         </div>
 
         <div class="footer-note">
-            &copy; 2026 Hồ Quang Vinh. Designed with passion.
+            <p>Designed with <i class="bi bi-heart-fill"></i> by Quang Vinh</p>
         </div>
     </div>
 
 </body>
-
 </html>
