@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxStay - Hệ Thống Đặt Phòng Khách Sạn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4e9dd8;
+            --primary-light: #7ebcf0;
+            --secondary: #f5a623;
+            --light-gray: #f8f9fa;
+            --dark: #343a40;
+            --text: #495057;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background-color: #f9f9f9;
+        }
+        
+        .bg-primary-custom { background-color: var(--primary); }
+        .bg-secondary-custom { background-color: var(--secondary); }
+        .text-primary-custom { color: var(--primary); }
+        .text-secondary-custom { color: var(--secondary); }
+        
+        .btn-primary-custom {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary-custom:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+            color: white;
+        }
+        
+        .btn-secondary-custom {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary-custom:hover {
+            background-color: #e09310;
+            border-color: #e09310;
+            color: white;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 600px;
+            color: white;
+        }
+        
+        .hotel-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .hotel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hotel-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+        
+        .rating { color: var(--secondary); }
+        
+        .page-section {
+            display: none;
+            padding: 20px 0;
+        }
+        
+        .page-section.active { display: block; }
+        
+        #homePage { display: block; }
+        
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        
+        footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: var(--primary-light);
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 0 5px;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header & Navigation -->
+<header class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#" onclick="showPage('homePage')">
+                <i class="fas fa-hotel text-primary-custom me-2"></i>
+                <span class="fw-bold">LuxStay</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showPage('homePage')">
+                            <i class="fas fa-home me-1"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('bookingPage')">
+                            <i class="fas fa-calendar-alt me-1"></i> Đặt phòng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPage('reviewsPage')">
+                            <i class="fas fa-star me-1"></i> Đánh giá
+                        </a>
+                    </li>
+                    
+                    <!-- Admin Menu - Chỉ hiển thị khi đăng nhập với role admin -->
+                    <li class="nav-item dropdown" id="adminMenu" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-shield me-1"></i> Quản trị
+                        </a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item" href="#" onclick="showPage('userManagementPage')">Quản lý người dùng</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showPage('hotelManagementPage')">Quản lý khách sạn</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showPage('roomManagementPage')">Quản lý phòng</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showPage('statsPage')">Thống kê & báo cáo</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- User Menu - Hiển thị khi đã đăng nhập -->
+                    <li class="nav-item dropdown" id="userMenu" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i> <span id="userName">Tài khoản</span>
+                        </a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Thông tin cá nhân</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-history me-2"></i>Lịch sử đặt phòng</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Login Button - Chỉ hiển thị khi chưa đăng nhập -->
+                    <li class="nav-item" id="loginButton">
+                        <a class="nav-link btn btn-primary-custom text-white px-3 ms-lg-3" href="dangnhap.html">
+                            <i class="fas fa-sign-in-alt me-1"></i> Đăng nhập
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Main Content -->
+<main>
+    <!-- Trang chủ -->
+    <section id="homePage" class="page-section active">
+        <!-- Hero Section -->
+        <div class="hero-section d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center">
+                        <h1 class="display-4 fw-bold mb-4">Tìm kiếm trải nghiệm lưu trú hoàn hảo</h1>
+                        <p class="lead mb-5">Khám phá hàng ngàn khách sạn cao cấp với dịch vụ tuyệt vời và giá cả hợp lý</p>
+                        
+                        <!-- Search Box -->
+                        <div class="bg-white p-4 rounded-3 shadow">
+                            <form class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="destination" placeholder="Địa điểm">
+                                        <label for="destination"><i class="fas fa-map-marker-alt me-2"></i>Địa điểm</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="date" class="form-control" id="checkIn" placeholder="Nhận phòng">
+                                        <label for="checkIn"><i class="fas fa-calendar-check me-2"></i>Nhận phòng</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="date" class="form-control" id="checkOut" placeholder="Trả phòng">
+                                        <label for="checkOut"><i class="fas fa-calendar-times me-2"></i>Trả phòng</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-secondary-custom w-100 h-100">
+                                        <i class="fas fa-search me-2"></i>Tìm
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Featured Hotels -->
+        <div class="container py-5">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3 text-center fw-bold">Khách sạn nổi bật</h2>
+                    <p class="text-center text-muted">Những lựa chọn hàng đầu được du khách yêu thích</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Hotel 1 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card hotel-card h-100 border-0 shadow-sm">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Hotel" style="height: 200px; object-fit: cover;">
+                            <div class="hotel-badge">
+                                <span class="badge bg-secondary-custom">Giảm 25%</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title mb-0 fw-bold">Luxury Palace Hotel</h5>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted"><i class="fas fa-map-marker-alt me-2"></i>Hà Nội, Việt Nam</p>
+                            <p class="card-text">Trải nghiệm đẳng cấp 5 sao với view toàn cảnh thành phố</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="text-decoration-line-through text-muted">2,500,000₫</span>
+                                    <span class="fs-5 fw-bold text-primary-custom">1,875,000₫</span>
+                                    <span class="text-muted">/đêm</span>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-outline-primary" onclick="showPage('bookingPage')">Đặt ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hotel 2 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card hotel-card h-100 border-0 shadow-sm">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Hotel" style="height: 200px; object-fit: cover;">
+                            <div class="hotel-badge">
+                                <span class="badge bg-primary-custom">Hot</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title mb-0 fw-bold">Seaside Resort & Spa</h5>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted"><i class="fas fa-map-marker-alt me-2"></i>Đà Nẵng, Việt Nam</p>
+                            <p class="card-text">Khu nghỉ dưỡng sang trọng ngay bờ biển với spa đẳng cấp</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="fs-5 fw-bold text-primary-custom">3,200,000₫</span>
+                                    <span class="text-muted">/đêm</span>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-outline-primary" onclick="showPage('bookingPage')">Đặt ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hotel 3 -->
+                <div class="col-md-4 mb-4">
+                    <div class="card hotel-card h-100 border-0 shadow-sm">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1606402179428-a57976d71fa4?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Hotel" style="height: 200px; object-fit: cover;">
+                            <div class="hotel-badge">
+                                <span class="badge bg-success">Eco-friendly</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title mb-0 fw-bold">Green Terrace Hotel</h5>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted"><i class="fas fa-map-marker-alt me-2"></i>Hồ Chí Minh, Việt Nam</p>
+                            <p class="card-text">Khách sạn thân thiện với môi trường, không gian xanh mát</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="fs-5 fw-bold text-primary-custom">1,950,000₫</span>
+                                    <span class="text-muted">/đêm</span>
+                                </div>
+                                <a href="#" class="btn btn-sm btn-outline-primary" onclick="showPage('bookingPage')">Đặt ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Why Choose Us -->
+        <div class="bg-light py-5">
+            <div class="container">
+                <h2 class="text-center fw-bold mb-5">Tại sao chọn LuxStay?</h2>
+                <div class="row">
+                    <div class="col-md-3 text-center mb-4">
+                        <div class="mb-3">
+                            <i class="fas fa-shield-alt fa-3x text-primary-custom"></i>
+                        </div>
+                        <h5 class="fw-bold">Đảm bảo giá tốt</h5>
+                        <p class="text-muted">Cam kết giá tốt nhất thị trường</p>
+                    </div>
+                    <div class="col-md-3 text-center mb-4">
+                        <div class="mb-3">
+                            <i class="fas fa-headset fa-3x text-primary-custom"></i>
+                        </div>
+                        <h5 class="fw-bold">Hỗ trợ 24/7</h5>
+                        <p class="text-muted">Đội ngũ chăm sóc luôn sẵn sàng</p>
+                    </div>
+                    <div class="col-md-3 text-center mb-4">
+                        <div class="mb-3">
+                            <i class="fas fa-undo fa-3x text-primary-custom"></i>
+                        </div>
+                        <h5 class="fw-bold">Hoàn tiền dễ dàng</h5>
+                        <p class="text-muted">Chính sách hoàn hủy linh hoạt</p>
+                    </div>
+                    <div class="col-md-3 text-center mb-4">
+                        <div class="mb-3">
+                            <i class="fas fa-award fa-3x text-primary-custom"></i>
+                        </div>
+                        <h5 class="fw-bold">Chất lượng đảm bảo</h5>
+                        <p class="text-muted">Khách sạn được kiểm duyệt kỹ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Các trang khác (bookingPage, reviewsPage, etc.) sẽ được thêm vào đây -->
+    <section id="bookingPage" class="page-section">
+        <div class="container py-5">
+            <h2 class="text-center mb-4">Đặt phòng</h2>
+            <p class="text-center text-muted">Tính năng đang được phát triển...</p>
+        </div>
+    </section>
+    
+    <section id="reviewsPage" class="page-section">
+        <div class="container py-5">
+            <h2 class="text-center mb-4">Đánh giá khách hàng</h2>
+            <p class="text-center text-muted">Tính năng đang được phát triển...</p>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- Về chúng tôi -->
+            <div class="col-md-3 mb-4">
+                <h5 class="fw-bold mb-3">
+                    <i class="fas fa-hotel me-2"></i>LuxStay
+                </h5>
+                <p class="text-muted">Hệ thống đặt phòng khách sạn hàng đầu Việt Nam, mang đến trải nghiệm lưu trú tuyệt vời cho mọi khách hàng.</p>
+                <div class="social-icons mt-3">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <!-- Liên kết nhanh -->
+            <div class="col-md-3 mb-4">
+                <h5 class="fw-bold mb-3">Liên kết nhanh</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" onclick="showPage('homePage')"><i class="fas fa-chevron-right me-2"></i>Trang chủ</a></li>
+                    <li class="mb-2"><a href="#" onclick="showPage('bookingPage')"><i class="fas fa-chevron-right me-2"></i>Đặt phòng</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-chevron-right me-2"></i>Về chúng tôi</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-chevron-right me-2"></i>Liên hệ</a></li>
+                </ul>
+            </div>
+            
+            <!-- Hỗ trợ -->
+            <div class="col-md-3 mb-4">
+                <h5 class="fw-bold mb-3">Hỗ trợ</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#"><i class="fas fa-chevron-right me-2"></i>Câu hỏi thường gặp</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-chevron-right me-2"></i>Chính sách bảo mật</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-chevron-right me-2"></i>Điều khoản sử dụng</a></li>
+                    <li class="mb-2"><a href="#"><i class="fas fa-chevron-right me-2"></i>Chính sách hoàn hủy</a></li>
+                </ul>
+            </div>
+            
+            <!-- Liên hệ -->
+            <div class="col-md-3 mb-4">
+                <h5 class="fw-bold mb-3">Liên hệ</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        123 Đường ABC, Quận 1, TP.HCM
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-phone me-2"></i>
+                        <a href="tel:1900xxxx">1900 xxxx</a>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        <a href="mailto:support@luxstay.vn">support@luxstay.vn</a>
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-clock me-2"></i>
+                        24/7 - Luôn sẵn sàng hỗ trợ
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <hr class="my-4 bg-light">
+        
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0">&copy; 2024 LuxStay. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> in Vietnam</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<button id="backToTop" class="btn btn-primary-custom" style="display: none; position: fixed; bottom: 30px; right: 30px; z-index: 1000; border-radius: 50%; width: 50px; height: 50px;">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Kiểm tra trạng thái đăng nhập
+    function checkLoginStatus() {
+        const user = localStorage.getItem('luxstay_user');
+        const loginButton = document.getElementById('loginButton');
+        const userMenu = document.getElementById('userMenu');
+        const adminMenu = document.getElementById('adminMenu');
+        const userName = document.getElementById('userName');
+        
+        if (user) {
+            const userData = JSON.parse(user);
+            loginButton.style.display = 'none';
+            userMenu.style.display = 'block';
+            userName.textContent = userData.name;
+            
+            // Hiển thị menu admin nếu là admin
+            if (userData.role === 'admin') {
+                adminMenu.style.display = 'block';
+            }
+        } else {
+            loginButton.style.display = 'block';
+            userMenu.style.display = 'none';
+            adminMenu.style.display = 'none';
+        }
+    }
+    
+    // Đăng xuất
+    function logout() {
+        if (confirm('Bạn có chắc muốn đăng xuất?')) {
+            localStorage.removeItem('luxstay_user');
+            window.location.href = 'dangnhap.html';
+        }
+    }
+    
+    // Chuyển trang
+    function showPage(pageId) {
+        // Ẩn tất cả các trang
+        document.querySelectorAll('.page-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Hiển thị trang được chọn
+        document.getElementById(pageId).classList.add('active');
+        
+        // Cập nhật active nav link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Back to top button
+    window.onscroll = function() {
+        const backToTop = document.getElementById('backToTop');
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            backToTop.style.display = 'block';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    };
+    
+    document.getElementById('backToTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Khởi tạo khi trang load
+    document.addEventListener('DOMContentLoaded', function() {
+        checkLoginStatus();
+    });
+</script>
+
+</body>
+</html>
