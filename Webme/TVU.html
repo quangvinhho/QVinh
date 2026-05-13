@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập Form - TVU</title>
+    <!-- Nhúng file CSS của bạn -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Nhúng thư viện icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="login-card">
+        <!-- Phần Header: Logo và Tiêu đề -->
+        <div class="header-section">
+            <img src="../images/TVU-RGB (1).png" alt="Logo TVU" class="logo">
+            <h2>PHẦN MỀM TIN HỌC</h2>
+            <h3>ĐÁNH GIÁ KẾT QUẢ RÈN LUYỆN CHO SINH VIÊN CHÍNH QUY <br> TẠI ĐẠI HỌC TRÀ VINH</h3>
+        </div>
+
+        <!-- Đường kẻ ngang -->
+        <hr class="divider">
+
+        <!-- Phần Form nhập liệu -->
+        <form action="#" class="login-form">
+            <!-- Ô Email -->
+            <div class="input-group">
+                <input type="text" placeholder="Email" required>
+                <div class="icon-box"><i class="fas fa-envelope"></i></div>
+            </div>
+
+            <!-- Ô Mật khẩu -->
+            <div class="input-group">
+                <input type="password" placeholder="Mật khẩu" required>
+                <div class="icon-box"><i class="fas fa-lock"></i></div>
+            </div>
+
+            <!-- Ghi nhớ & Nút Đăng nhập cơ bản -->
+            <div class="row-middle">
+                <label class="remember-me">
+                    <input type="checkbox"> Nhớ mật khẩu
+                </label>
+                <button type="submit" class="btn-primary-small">Đăng nhập</button>
+            </div>
+
+            <!-- Các nút đăng nhập hệ thống -->
+            <button type="button" class="btn-blue">Sinh viên (Đăng nhập bằng Email Microsoft)</button>
+            <button type="button" class="btn-red">Giảng viên (Đăng nhập bằng Email TVU)</button>
+        </form>
+
+        <!-- Phần Quên mật khẩu -->
+        <div class="footer-links">
+            <a href="#">Quên mật khẩu?</a>
+        </div>
+    </div>
+
+</body>
+</html>

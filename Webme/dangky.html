@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin đăng ký</title>
+    <!-- Nhúng file CSS mới -->
+    <link rel="stylesheet" href="style-dangky.css">
+</head>
+<body>
+
+    <div class="register-card">
+        <!-- Tiêu đề màu xanh -->
+        <div class="card-header">
+            <h2>Thông tin đăng ký</h2>
+        </div>
+
+        <!-- Khung chứa Form -->
+        <div class="card-body">
+            <form action="#">
+                
+                <div class="form-group">
+                    <label>Họ tên:</label>
+                    <input type="text" placeholder="Nhập họ tên">
+                </div>
+
+                <div class="form-group">
+                    <label>Ngày sinh:</label>
+                    <input type="date">
+                </div>
+
+                <div class="form-group">
+                    <label>Giới tính:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="gioitinh" value="nam"> Nam</label>
+                        <label><input type="radio" name="gioitinh" value="nu"> Nữ</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Địa chỉ:</label>
+                    <input type="text" placeholder="Nhập địa chỉ">
+                </div>
+
+                <div class="form-group">
+                    <label>MSSV:</label>
+                    <input type="text" placeholder="Nhập mã số sinh viên">
+                </div>
+
+                <div class="form-group">
+                    <label>Lớp:</label>
+                    <select>
+                        <option value="DA25TTC">DA25TTC</option>
+                        <option value="DA24TTC">DA24TTC</option>
+                        <option value="DA23TTC">DA23TTC</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Số điện thoại:</label>
+                    <input type="text" placeholder="Nhập số điện thoại">
+                </div>
+
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" placeholder="Nhập email">
+                </div>
+
+                <div class="form-group">
+                    <label>Ảnh đại diện:</label>
+                    <input type="file" class="file-input">
+                </div>
+
+                <div class="form-group">
+                    <label>Sở trường:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox"> Thiết kế web</label>
+                        <label><input type="checkbox"> Lập trình web</label>
+                        <label><input type="checkbox"> Thành thạo tiếng Trung</label>
+                    </div>
+                </div>
+
+                <!-- Riêng Textarea cần cấu trúc hơi khác chút -->
+                <div class="form-group-textarea">
+                    <label>Mô tả sơ lược:</label>
+                    <textarea rows="4"></textarea>
+                </div>
+
+                <!-- Nút nhấn -->
+                <div class="button-group">
+                    <button type="button" class="btn-cancel">Hủy bỏ</button>
+                    <button type="submit" class="btn-submit">Đăng ký</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
